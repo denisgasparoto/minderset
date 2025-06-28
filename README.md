@@ -1,7 +1,6 @@
 # 📚 Minderset App
 
 ![Version](https://img.shields.io/badge/version-1.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)
 ![Platform](https://img.shields.io/badge/platform-Android-3DDC84.svg)
 
 **Potencialize sua jornada no desenvolvimento de software — um cartão de estudo por vez.**  
