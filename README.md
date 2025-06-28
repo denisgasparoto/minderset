@@ -51,26 +51,24 @@ Ou abra o projeto no Android Studio e sincronize.
 
 ## 📱 Capturas de Tela / Demo
 
-## 📱 Capturas de Tela / Demo
-
-<p float="left">
-  <figure style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="screenshots/home.png" width="200" />
-    <figcaption>Home</figcaption>
-  </figure>
-  <figure style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="screenshots/categories.png" width="200" />
-    <figcaption>Categorias</figcaption>
-  </figure>
-  <figure style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="screenshots/add.png" width="200" />
-    <figcaption>Adicionar</figcaption>
-  </figure>
-  <figure style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="screenshots/share.png" width="200" />
-    <figcaption>Compartilhar</figcaption>
-  </figure>
-</p>
+<table style="margin: auto; border-collapse: separate; border-spacing: 12px 6px;">
+  <tr>
+    <td style="text-align: center;">
+      <img src="screenshots/home.png" style="max-width: 40px;" />
+    </td>
+    <td style="text-align: center;">
+      <img src="screenshots/categories.png" style="max-width: 40px;" />
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">
+      <img src="screenshots/add.png" style="max-width: 40px;" />
+    </td>
+    <td style="text-align: center;">
+      <img src="screenshots/share.png" style="max-width: 40px;" />
+    </td>
+  </tr>
+</table>
 
 ## 🎯 Público-Alvo
 O aplicativo Minderset é voltado para desenvolvedores de software de qualquer especialidade técnica e qualquer nível de experiência que queiram organizar seus estudos e acompanhar o progresso na aquisição de boas práticas de desenvolvimento.
