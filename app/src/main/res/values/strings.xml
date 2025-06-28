@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Minderset</string>
+
+    <!-- Common Text -->
+    <string name="label_question">Pergunta</string>
+    <string name="label_answer">Resposta</string>
+
+    <!-- AddFlashCardDialog -->
+    <string name="add_flash_card_title">Adicionar Cartão</string>
+    <string name="button_save">Salvar</string>
+    <string name="button_cancel">Cancelar</string>
+    <string name="char_count">%1$d / %2$d</string>
+
+    <!-- FlashCardScreen -->
+    <string name="flash_cards_title">Meus Cartões</string>
+    <string name="fab_add_flashcard_desc">Adicionar Cartão</string>
+    <string name="error_prefix">Erro: %1$s</string>
+    <string name="share_chooser_title">Compartilhar Cartão</string>
+
+    <!-- FlashCardItem -->
+    <string name="prefix_question">P: %1$s</string>
+    <string name="prefix_answer">R: %1$s</string>
+    <string name="button_delete">Excluir</string>
+    <string name="button_share">Compartilhar</string>
+
+    <!-- FlashCardDetailsDialog -->
+    <string name="flash_card_details_title">Detalhes do Cartão</string>
+    <string name="close_button_text">Fechar</string>
+
+    <!-- Share FlashCard -->
+    <string name="share_flashcard_title">Minderset</string>
+    <string name="share_flashcard_question">Pergunta: %1$s</string>
+    <string name="share_flashcard_answer">Resposta: %1$s</string>
+
+    <!-- Validation Text -->
+    <string name="validation_question_too_short">A pergunta deve ter pelo menos %1$d caracteres</string>
+    <string name="validation_question_too_long">A pergunta não pode exceder %1$d caracteres</string>
+    <string name="validation_answer_too_short">A resposta deve ter pelo menos %1$d caracteres</string>
+    <string name="validation_answer_too_long">A resposta não pode exceder %1$d caracteres</string>
+</resources>
