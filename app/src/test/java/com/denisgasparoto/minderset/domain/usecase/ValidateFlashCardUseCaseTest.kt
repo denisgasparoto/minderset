@@ -17,8 +17,8 @@ class ValidateFlashCardUseCaseTest {
 
     @Test
     fun `valid inputs return empty error map`() {
-        val question = "What is Kotlin?"
-        val answer = "A programming language."
+        val question = "Test Question"
+        val answer = "Test Answer"
 
         val errors = validateUseCase(question, answer)
 
@@ -27,8 +27,8 @@ class ValidateFlashCardUseCaseTest {
 
     @Test
     fun `question too short returns QuestionTooShort error`() {
-        val question = "Hi"
-        val answer = "Some answer"
+        val question = "T"
+        val answer = "Test Answer"
 
         val errors = validateUseCase(question, answer)
 
@@ -38,8 +38,8 @@ class ValidateFlashCardUseCaseTest {
 
     @Test
     fun `question too long returns QuestionTooLong error`() {
-        val question = "A".repeat(ValidationKeys.MAX_QUESTION_TEXT_LENGTH + 1)
-        val answer = "Some answer"
+        val question = "T".repeat(ValidationKeys.MAX_QUESTION_TEXT_LENGTH + 1)
+        val answer = "Test Answer"
 
         val errors = validateUseCase(question, answer)
 
@@ -49,7 +49,7 @@ class ValidateFlashCardUseCaseTest {
 
     @Test
     fun `answer too short returns AnswerTooShort error`() {
-        val question = "Valid question?"
+        val question = "Test Question"
         val answer = "A"
 
         val errors = validateUseCase(question, answer)
@@ -60,7 +60,7 @@ class ValidateFlashCardUseCaseTest {
 
     @Test
     fun `answer too long returns AnswerTooLong error`() {
-        val question = "Valid question?"
+        val question = "Test Question"
         val answer = "A".repeat(ValidationKeys.MAX_ANSWER_TEXT_LENGTH + 1)
 
         val errors = validateUseCase(question, answer)

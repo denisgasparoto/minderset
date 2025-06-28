@@ -33,7 +33,6 @@ class FlashCardRepositoryImplTest {
             FlashCardEntity(id = 1, question = "Q1", answer = "A1", category = "C1"),
             FlashCardEntity(id = 2, question = "Q2", answer = "A2", category = "C2")
         )
-        // Mocking suspend function with coEvery
         coEvery { dao.getAll() } returns entities
 
         val result = repository.getFlashCards()
