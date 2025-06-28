@@ -46,6 +46,17 @@ internal fun FlashCardDetailsDialog(
                     text = card.answer,
                     style = MaterialTheme.typography.bodyLarge
                 )
+                Spacer(modifier = Modifier.height(Dimens.SpaceSmall))
+                if (card.category.isNotBlank()) {
+                    Text(
+                        text = stringResource(R.string.label_category),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Text(
+                        text = card.category,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
             }
         }
     )

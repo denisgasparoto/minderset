@@ -24,8 +24,8 @@ class GetFlashCardsUseCaseTest {
     @Test
     fun `invoke calls repository getFlashCards and returns data`() = runBlocking {
         val cards = listOf(
-            FlashCard(id = 1, question = "Q1", answer = "A1"),
-            FlashCard(id = 2, question = "Q2", answer = "A2")
+            FlashCard(id = 1, question = "Q1", answer = "A1", category = "C1"),
+            FlashCard(id = 2, question = "Q2", answer = "A2", category = "C2")
         )
         coEvery { repository.getFlashCards() } returns cards
 

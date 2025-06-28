@@ -20,6 +20,7 @@
     <!-- FlashCardItem -->
     <string name="prefix_question">P: %1$s</string>
     <string name="prefix_answer">R: %1$s</string>
+    <string name="prefix_category">C: %1$s</string>
     <string name="button_delete">Excluir</string>
     <string name="button_share">Compartilhar</string>
 
@@ -31,6 +32,13 @@
     <string name="share_flashcard_title">Minderset</string>
     <string name="share_flashcard_question">Pergunta: %1$s</string>
     <string name="share_flashcard_answer">Resposta: %1$s</string>
+    <string name="share_flashcard_category">Categoria: %1$s</string>
+
+    <!-- CategoryFilterDropdown -->
+    <string name="all_categories">Todos</string>
+
+    <!-- CategoryInputDropdown -->
+    <string name="label_category">Categoria</string>
 
     <!-- Validation Text -->
     <string name="validation_question_too_short">A pergunta deve ter pelo menos %1$d caracteres</string>

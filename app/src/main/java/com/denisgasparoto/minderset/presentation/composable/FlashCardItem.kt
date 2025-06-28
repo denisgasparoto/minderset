@@ -49,6 +49,17 @@ internal fun FlashCardItem(
             )
             Spacer(modifier = Modifier.height(Dimens.SpaceSmall))
 
+            if (card.category.isNotBlank()) {
+                Text(
+                    text = stringResource(R.string.prefix_category, card.category),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.height(Dimens.SpaceSmall))
+            }
+
+            Spacer(modifier = Modifier.height(Dimens.SpaceSmall))
+
             Row {
                 Button(onClick = { onDelete(card) }) {
                     Text(stringResource(R.string.button_delete))

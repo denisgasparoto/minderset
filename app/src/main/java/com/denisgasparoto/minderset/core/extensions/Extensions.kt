@@ -12,6 +12,7 @@ internal fun FlashCard.toShareText(context: Context): String {
         appendLine(context.getString(R.string.share_flashcard_title))
         appendLine(context.getString(R.string.share_flashcard_question, question))
         appendLine(context.getString(R.string.share_flashcard_answer, answer))
+        appendLine(context.getString(R.string.share_flashcard_category, category))
     }
 }
 

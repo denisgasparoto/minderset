@@ -25,15 +25,18 @@ import com.denisgasparoto.minderset.presentation.theme.Dimens
 internal fun AddFlashCardDialog(
     initialQuestion: String = "",
     initialAnswer: String = "",
+    initialCategory: String = "",
     isOpen: Boolean,
     onDismiss: () -> Unit,
-    onSave: (question: String, answer: String) -> Unit,
-    validate: (String, String) -> Map<String, ValidationError>
+    onSave: (question: String, answer: String, category: String) -> Unit,
+    validate: (String, String) -> Map<String, ValidationError>,
+    existingCategories: List<String> = emptyList()
 ) {
     if (!isOpen) return
 
     var questionInput by remember { mutableStateOf(initialQuestion) }
     var answerInput by remember { mutableStateOf(initialAnswer) }
+    var categoryInput by remember { mutableStateOf(initialCategory) }
     var showValidationError by remember { mutableStateOf(false) }
 
     val validationErrors = validate(questionInput, answerInput)
@@ -64,7 +67,7 @@ internal fun AddFlashCardDialog(
             TextButton(onClick = {
                 showValidationError = true
                 if (isInputValid) {
-                    onSave(questionInput, answerInput)
+                    onSave(questionInput.trim(), answerInput.trim(), categoryInput.trim())
                     showValidationError = false
                 }
             }) {
@@ -101,6 +104,14 @@ internal fun AddFlashCardDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = Dimens.TextFieldMinHeight)
+                )
+
+                Spacer(modifier = Modifier.height(Dimens.SpaceSmall))
+
+                CategoryInputDropdown(
+                    categoryInput = categoryInput,
+                    onCategoryChange = { categoryInput = it },
+                    existingCategories = existingCategories
                 )
             }
         }

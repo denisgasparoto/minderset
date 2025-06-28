@@ -32,13 +32,27 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 internal fun FlashCardScreen(viewModel: FlashCardViewModel = koinViewModel()) {
     val uiState by viewModel.uiState.collectAsState()
-
     val context = LocalContext.current
+
     var showDialog by remember { mutableStateOf(false) }
     var selectedCardForDetails by remember { mutableStateOf<FlashCard?>(null) }
+    val selectedCategory by viewModel.filterCategory.collectAsState()
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text(stringResource(R.string.flash_cards_title)) }) },
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.flash_cards_title)) },
+                actions = {
+                    CategoryFilterDropdown(
+                        allCategories = uiState.cards.map { it.category }.distinct().sorted(),
+                        selectedCategory = selectedCategory,
+                        onCategorySelected = { category ->
+                            viewModel.setFilterCategory(category)
+                        }
+                    )
+                }
+            )
+        },
         floatingActionButton = {
             FloatingActionButton(onClick = { showDialog = true }) {
                 Icon(
@@ -70,30 +84,37 @@ internal fun FlashCardScreen(viewModel: FlashCardViewModel = koinViewModel()) {
             }
 
             else -> {
+                val filteredCards = selectedCategory?.let { cat ->
+                    uiState.cards.filter { it.category.equals(cat, ignoreCase = true) }
+                } ?: uiState.cards
+
                 FlashCardList(
-                    cards = uiState.cards,
-                    onDelete = { card -> viewModel.deleteCard(card) },
-                    onShare = { card -> card.share(context) },
-                    onCardClick = { card -> selectedCardForDetails = card },
+                    cards = filteredCards,
+                    onDelete = viewModel::deleteCard,
+                    onShare = { it.share(context) },
+                    onCardClick = { selectedCardForDetails = it },
                     modifier = Modifier.padding(padding)
                 )
             }
         }
     }
 
-    AddFlashCardDialog(
-        isOpen = showDialog,
-        onDismiss = { showDialog = false },
-        onSave = { question, answer ->
-            val newCard = FlashCard(
-                question = question,
-                answer = answer
-            )
-            viewModel.addCard(newCard)
-            showDialog = false
-        },
-        validate = viewModel::validateCard
-    )
+    if (showDialog) {
+        AddFlashCardDialog(
+            isOpen = showDialog,
+            onDismiss = { showDialog = false },
+            onSave = { question, answer, category ->
+                viewModel.addCard(
+                    question = question,
+                    answer = answer,
+                    category = category
+                )
+                showDialog = false
+            },
+            validate = viewModel::validateCard,
+            existingCategories = uiState.cards.map { it.category }.distinct().sorted()
+        )
+    }
 
     selectedCardForDetails?.let { card ->
         FlashCardDetailsDialog(

@@ -11,7 +11,6 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.verify
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -31,14 +30,15 @@ class FlashCardRepositoryImplTest {
     @Test
     fun `getFlashCards returns mapped list from dao`() = runBlocking {
         val entities = listOf(
-            FlashCardEntity(id = 1, question = "Q1", answer = "A1"),
-            FlashCardEntity(id = 2, question = "Q2", answer = "A2")
+            FlashCardEntity(id = 1, question = "Q1", answer = "A1", category = "C1"),
+            FlashCardEntity(id = 2, question = "Q2", answer = "A2", category = "C2")
         )
-        every { runBlocking { dao.getAll() } } returns entities
+        // Mocking suspend function with coEvery
+        coEvery { dao.getAll() } returns entities
 
         val result = repository.getFlashCards()
 
-        verify(exactly = 1) { runBlocking { dao.getAll() } }
+        coVerify(exactly = 1) { dao.getAll() }
         assertEquals(entities.size, result.size)
         assertEquals("Q1", result[0].question)
         assertEquals("A2", result[1].answer)
@@ -46,7 +46,7 @@ class FlashCardRepositoryImplTest {
 
     @Test
     fun `addFlashCard calls dao insert with entity`() = runBlocking {
-        val card = FlashCard(id = 5, question = "Q", answer = "A")
+        val card = FlashCard(id = 5, question = "Q", answer = "A", category = "C")
         val entity = card.toEntity()
 
         coEvery { dao.insert(entity) } just Runs
@@ -58,7 +58,7 @@ class FlashCardRepositoryImplTest {
 
     @Test
     fun `deleteFlashCard calls dao delete with entity`() = runBlocking {
-        val card = FlashCard(id = 5, question = "Q", answer = "A")
+        val card = FlashCard(id = 5, question = "Q", answer = "A", category = "C")
         val entity = card.toEntity()
 
         coEvery { dao.delete(entity) } just Runs

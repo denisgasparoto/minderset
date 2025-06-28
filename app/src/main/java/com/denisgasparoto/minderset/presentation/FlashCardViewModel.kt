@@ -27,6 +27,9 @@ internal class FlashCardViewModel(
     private val _uiState = MutableStateFlow(FlashCardUiState())
     val uiState: StateFlow<FlashCardUiState> = _uiState.asStateFlow()
 
+    private val _filterCategory = MutableStateFlow<String?>(null)
+    val filterCategory: StateFlow<String?> = _filterCategory.asStateFlow()
+
     init {
         loadCards()
     }
@@ -37,7 +40,21 @@ internal class FlashCardViewModel(
 
             runCatching { getFlashCardsUseCase() }
                 .onSuccess { cards ->
-                    _uiState.update { it.copy(cards = cards, isLoading = false) }
+                    val distinctCategories = cards.map { it.category }
+                        .filter { it.isNotBlank() }
+                        .distinct()
+                        .sorted()
+
+                    val filtered = filterCards(cards, _filterCategory.value)
+
+                    _uiState.update {
+                        it.copy(
+                            cards = cards,
+                            categories = distinctCategories,
+                            filteredCards = filtered,
+                            isLoading = false
+                        )
+                    }
                 }
                 .onFailure { error ->
                     _uiState.update { it.copy(errorMessage = error.message, isLoading = false) }
@@ -45,17 +62,43 @@ internal class FlashCardViewModel(
         }
     }
 
-    fun addCard(card: FlashCard) {
+    fun setFilterCategory(category: String?) {
+        _filterCategory.value = category
+        _uiState.update {
+            it.copy(
+                selectedCategory = category,
+                filteredCards = filterCards(it.cards, category)
+            )
+        }
+    }
+
+    private fun filterCards(allCards: List<FlashCard>, category: String?): List<FlashCard> {
+        val filtered = category?.takeIf { it.isNotBlank() }?.let {
+            allCards.filter { card -> card.category.equals(it, ignoreCase = true) }
+        } ?: allCards
+
+        return filtered.sortedWith(
+            compareBy(
+                { it.category.lowercase() },
+                { it.question.lowercase() })
+        )
+    }
+
+    fun addCard(question: String, answer: String, category: String) {
         viewModelScope.launch(ioDispatcher) {
+            val card = FlashCard(question = question, answer = answer, category = category.trim())
+
             _uiState.update { it.copy(isLoading = true, errorMessage = null) }
 
-            runCatching { addFlashCardUseCase(card) }
-                .onSuccess {
-                    loadCards()
+            runCatching {
+                addFlashCardUseCase(card)
+            }.onSuccess {
+                loadCards()
+            }.onFailure { error ->
+                _uiState.update {
+                    it.copy(errorMessage = error.message, isLoading = false)
                 }
-                .onFailure { error ->
-                    _uiState.update { it.copy(errorMessage = error.message, isLoading = false) }
-                }
+            }
         }
     }
 

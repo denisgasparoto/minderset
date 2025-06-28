@@ -21,7 +21,7 @@ class DeleteFlashCardUseCaseTest {
 
     @Test
     fun `invoke calls repository deleteFlashCard`() = runBlocking {
-        val card = FlashCard(id = 1, question = "Q", answer = "A")
+        val card = FlashCard(id = 1, question = "Q", answer = "A", category = "C")
 
         useCase(card)
 

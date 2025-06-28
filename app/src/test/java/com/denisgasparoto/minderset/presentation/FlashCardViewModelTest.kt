@@ -1,13 +1,16 @@
-package com.denisgasparoto.minderset.presentation
-
 import com.denisgasparoto.minderset.domain.model.FlashCard
 import com.denisgasparoto.minderset.domain.model.ValidationError
 import com.denisgasparoto.minderset.domain.usecase.AddFlashCardUseCase
 import com.denisgasparoto.minderset.domain.usecase.DeleteFlashCardUseCase
 import com.denisgasparoto.minderset.domain.usecase.GetFlashCardsUseCase
 import com.denisgasparoto.minderset.domain.usecase.ValidateFlashCardUseCase
+import com.denisgasparoto.minderset.presentation.FlashCardViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -16,10 +19,6 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -34,8 +33,8 @@ class FlashCardViewModelTest {
     private lateinit var validateFlashCardUseCase: ValidateFlashCardUseCase
 
     private val sampleCards = listOf(
-        FlashCard(id = 1, question = "Q1", answer = "A1"),
-        FlashCard(id = 2, question = "Q2", answer = "A2"),
+        FlashCard(id = 1, question = "Q1", answer = "A1", category = "cat1"),
+        FlashCard(id = 2, question = "Q2", answer = "A2", category = "cat2"),
     )
 
     @Before
@@ -96,9 +95,9 @@ class FlashCardViewModelTest {
 
     @Test
     fun `addCard success reloads cards`() = runTest {
-        val newCard = FlashCard(id = 3, question = "Q3", answer = "A3")
+        val newCard = FlashCard(id = 3, question = "Q3", answer = "A3", category = "")
 
-        coEvery { addFlashCardUseCase(newCard) } returns Unit
+        coEvery { addFlashCardUseCase(any()) } returns Unit
         coEvery { getFlashCardsUseCase() } returns sampleCards + newCard
 
         val vm = FlashCardViewModel(
@@ -111,21 +110,21 @@ class FlashCardViewModelTest {
 
         advanceUntilIdle()
 
-        vm.addCard(newCard)
+        vm.addCard(newCard.question, newCard.answer, newCard.category)
         advanceUntilIdle()
 
         val state = vm.uiState.value
         assertFalse(state.isLoading)
         assertNull(state.errorMessage)
-        assertTrue(state.cards.contains(newCard))
+        assertTrue(state.cards.any { it.question == newCard.question && it.answer == newCard.answer })
     }
 
     @Test
     fun `addCard failure updates uiState with error`() = runTest {
-        val newCard = FlashCard(id = 3, question = "Q3", answer = "A3")
+        val newCard = FlashCard(id = 3, question = "Q3", answer = "A3", category = "")
         val errorMsg = "Add failed"
 
-        coEvery { addFlashCardUseCase(newCard) } throws Exception(errorMsg)
+        coEvery { addFlashCardUseCase(any()) } throws Exception(errorMsg)
         coEvery { getFlashCardsUseCase() } returns sampleCards
 
         val vm = FlashCardViewModel(
@@ -138,7 +137,7 @@ class FlashCardViewModelTest {
 
         advanceUntilIdle()
 
-        vm.addCard(newCard)
+        vm.addCard(newCard.question, newCard.answer, newCard.category)
         advanceUntilIdle()
 
         val state = vm.uiState.value
