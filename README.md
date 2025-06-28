@@ -11,9 +11,9 @@ O Minderset é um app Android moderno que ajuda desenvolvedores a aprender e ret
 ## ✨ Funcionalidades
 
 * 🧠 Crie e gerencie cartões de estudo personalizados
-* 📂 Organize seu conhecimento em categorias personalizadas (a ser implementado)
-* 📈 Acompanhe seu progresso e marque tópicos como concluídos (a ser implementado)
-* 🔗 Compartilhe seu conteúdo de estudo via apps externos usando texto ou imagens  
+* 📂 Organize seu conhecimento em categorias personalizadas
+* 📈 Acompanhe seu progresso e marque cartões como concluídos (a ser implementado)
+* 🔗 Compartilhe seu conteúdo de estudo via apps externos  
 
 ---
 
@@ -36,8 +36,8 @@ O Minderset é um app Android moderno que ajuda desenvolvedores a aprender e ret
 
 ### Pré-requisitos
 
-* Android Studio Giraffe (ou mais recente)  
-* Kotlin 1.8+  
+* Android Studio  
+* Kotlin 1.8+
 * Android SDK 34  
 
 ### Clonar e Buildar
