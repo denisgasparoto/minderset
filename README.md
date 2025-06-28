@@ -50,7 +50,27 @@ cd minderset
 Ou abra o projeto no Android Studio e sincronize.
 
 ## 📱 Capturas de Tela / Demo
-(a fazer)
+
+## 📱 Capturas de Tela / Demo
+
+<p float="left">
+  <figure style="display: inline-block; margin: 10px; text-align: center;">
+    <img src="screenshots/home.png" width="200" />
+    <figcaption>Home</figcaption>
+  </figure>
+  <figure style="display: inline-block; margin: 10px; text-align: center;">
+    <img src="screenshots/categories.png" width="200" />
+    <figcaption>Categorias</figcaption>
+  </figure>
+  <figure style="display: inline-block; margin: 10px; text-align: center;">
+    <img src="screenshots/add.png" width="200" />
+    <figcaption>Adicionar</figcaption>
+  </figure>
+  <figure style="display: inline-block; margin: 10px; text-align: center;">
+    <img src="screenshots/share.png" width="200" />
+    <figcaption>Compartilhar</figcaption>
+  </figure>
+</p>
 
 ## 🎯 Público-Alvo
 O aplicativo Minderset é voltado para desenvolvedores de software de qualquer especialidade técnica e qualquer nível de experiência que queiram organizar seus estudos e acompanhar o progresso na aquisição de boas práticas de desenvolvimento.
